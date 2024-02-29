@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container p-5 d-flex align-items-center justify-content-center" style="height: 100vh;">
+        <div class="row">
+            <div class="col-6">
+                <div class="card" style="height: 100%;">
+                    <div class="card-header">
+                        Crea una cookie!
+                      </div>
+                      
+                    <div class="card-body">
+                        <form>
+                            <label for="name">Nombre de la cookie: </label>
+                            <input type="text" id="name"> <br> <br>
+                            <label for="valor">Valor de la cookie: </label>
+                            <input type="text" id="valor"><br><br>
+                            <button class="btn btn-light" onclick="guardarCookie()">Crear cookie</button>
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card"style="height: 100%;">
+                    <div class="card-header">
+                        Recupera una cookie!
+                      </div>
+                    <div class="card-body">
+                        <label for="recupName">Nombre de la cookie:</label>
+                        <input type="text" id="recupName"><br><br>
+                        <button class="btn btn-light" onclick="recuperarCookie()">Recuperar cookie</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div id="CreacionCookie">
+        <h1>Crea una cookie!</h1>
+        <form>
+            <label for="name">Nombre de la cookie: </label>
+            <input type="text" id="name"> <br> <br>
+            <label for="valor">Valor de la cookie: </label>
+            <input type="text" id="valor"><br><br>
+            <button onclick="guardarCookie()">Crear cookie</button>
+           
+        </form>
+    </div> <br><br>
+    <div id="RecuperacionCookie">
+        <h1>Recupera una cookie!</h1>
+        <label for="recupName">Nombre de la cookie:</label>
+        <input type="text" id="recupName"><br><br>
+        <button onclick="recuperarCookie()">Recuperar cookie</button>
+    </div> -->
+</body>
+<script>
+    let nombreCookie;
+    let valorCookie;
+    function guardarCookie() {
+
+        nombreCookie = document.getElementById('name').value;
+        valorCookie = document.getElementById('valor').value;
+        if (nombreCookie == '' || valorCookie == '') {
+            alert('Faltan datos!');
+        } else {
+            document.cookie = `${nombreCookie} = ${valorCookie};`;
+            window.alert('Se ha creado la cookie con éxito ¡Ve a mirarlo!')
+        }
+    }
+
+    function recuperarCookie() {
+        let recupName = document.getElementById('recupName').value;
+        if (recupName == '') {
+            alert('Faltan datos!');
+        } else {
+            const cookies = document.cookie.split(";");
+            let presente = false;
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                if (cookie.startsWith(recupName + "=")) {
+                    presente = true;
+                    alert('Cookie encontrada: [ ' + recupName + ': ' + cookie.substring(recupName.length + 1) + " ]");
+                }
+            }
+            if (!presente) {
+                alert('Esa cookie no existe');
+
+            }
+        }
+    }
+</script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+</html>
