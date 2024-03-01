@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookies y eventos</title>
+</head>
+<body>
+    <h1>Inserta nombres de asistentes en una misma cookie!</h1>
+    <label for="nombreAsistente">Nombre: </label>
+    <input type="text" id="nombreAsistente"> <br><br>
+    <label for="nacimientoAsistente">Año de nacimiento</label>
+    <input type="number" id="nacimientoAsistente"><br><br>
+    <button onclick="agregarAsistente()">Agregar</button>
+</body>
+<script>
+    function agregarAsistente(){
+        let nombre = document.getElementById("nombreAsistente").value;
+        let nacimientoAsistente = document.getElementById("nacimientoAsistente").value;
+
+        if(nombre === ''||nacimientoAsistente === ''){
+            alert('Faltan datos.');
+        } else{
+        let arrayAsistentes = [];
+
+        arrayAsistentes = getNombresCookie();
+
+        if(arrayAsistentes.includes(nombre)){
+            alert("Este nombre ya está en la cookie");
+        }else{
+           arrayAsistentes.push({nombre: nombre, nacimiento: (nacimientoAsistente)});
+         
+           document.cookie = `asistentes=${JSON.stringify(arrayAsistentes)};path=/`;
+
+            location.reload();
+            alert('Asistente agregado! Ve y mira las cookies :)');
+        } 
+    }
+    }
+    function getNombresCookie(){
+        let nombreCookie = "asistentes=";
+        let cookies = document.cookie.split(';');
+        
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            if(cookie.indexOf(nombreCookie) === 0){
+                return JSON.parse(cookie.substring(nombreCookie.length)) || [];
+            }
+        }
+        return [];
+    }
+</script>
+</html>
