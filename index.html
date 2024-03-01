@@ -31,40 +31,27 @@
             <div class="col-6">
                 <div class="card"style="height: 100%;">
                     <div class="card-header">
-                        Recupera una cookie!
+                        Recupera o elimina una cookie!
                       </div>
                     <div class="card-body">
                         <label for="recupName">Nombre de la cookie:</label>
                         <input type="text" id="recupName"><br><br>
                         <button class="btn btn-light" onclick="recuperarCookie()">Recuperar cookie</button>
+                        <button class="btn btn-light" onclick="eliminarCookie()">Eliminar cookie</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- <div id="CreacionCookie">
-        <h1>Crea una cookie!</h1>
-        <form>
-            <label for="name">Nombre de la cookie: </label>
-            <input type="text" id="name"> <br> <br>
-            <label for="valor">Valor de la cookie: </label>
-            <input type="text" id="valor"><br><br>
-            <button onclick="guardarCookie()">Crear cookie</button>
-           
-        </form>
-    </div> <br><br>
-    <div id="RecuperacionCookie">
-        <h1>Recupera una cookie!</h1>
-        <label for="recupName">Nombre de la cookie:</label>
-        <input type="text" id="recupName"><br><br>
-        <button onclick="recuperarCookie()">Recuperar cookie</button>
-    </div> -->
+  
 </body>
 <script>
     let nombreCookie;
     let valorCookie;
-    function guardarCookie() {
+    let recupName;
+    let presente = false;
 
+    function guardarCookie() {
         nombreCookie = document.getElementById('name').value;
         valorCookie = document.getElementById('valor').value;
         if (nombreCookie == '' || valorCookie == '') {
@@ -74,14 +61,14 @@
             window.alert('Se ha creado la cookie con éxito ¡Ve a mirarlo!')
         }
     }
-
+   
     function recuperarCookie() {
-        let recupName = document.getElementById('recupName').value;
+         recupName = document.getElementById('recupName').value;
         if (recupName == '') {
             alert('Faltan datos!');
         } else {
             const cookies = document.cookie.split(";");
-            let presente = false;
+         
             for (let i = 0; i < cookies.length; i++) {
                 let cookie = cookies[i].trim();
                 if (cookie.startsWith(recupName + "=")) {
@@ -93,6 +80,19 @@
                 alert('Esa cookie no existe');
 
             }
+        }
+        return presente;
+    }
+
+    function eliminarCookie(){
+       presente = recuperarCookie();
+        if (presente){
+           let eliminar = confirm('Deseas eliminar la cookie?');
+           if (eliminar){
+            document.cookie = recupName +"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; //fecha anterior así que la borra
+            location.reload();
+            alert('Cookie borrada con éxito!');
+           }
         }
     }
 </script>
